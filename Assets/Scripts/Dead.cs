@@ -2,13 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Dead : MonoBehaviour
-{
-    [SerializeField] private float _position;
+{ 
+    [SerializeField] private float _fallDistance;
+    
     private void Update()
     {
-        if (transform.position.y<_position)
+        if (transform.position.y<_fallDistance)
         {
             FinishGame();
         }
