@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnCoins : MonoBehaviour
+public class Spawner : MonoBehaviour
 { 
     [SerializeField] private Transform _points;
     [SerializeField] private Coin _coin;
     
     private Transform[] _spawnPoints;
     private int _nextPoint;
+    
     private void Start()
     {
         _spawnPoints = new Transform[_points.childCount];

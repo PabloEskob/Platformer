@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class EnemyPatrol : MonoBehaviour
 {
     [SerializeField] private Transform _path;
     [SerializeField] private float _speed;
+    [SerializeField] private float _turn;
 
     private SpriteRenderer _spriteRenderer;
     private int _nextPoint;
@@ -31,7 +33,7 @@ public class EnemyPatrol : MonoBehaviour
         if (transform.position == target.position)
         {
             _nextPoint++;
-            _spriteRenderer.flipX = transform.position.x < 0.01f;
+            _spriteRenderer.flipX = transform.position.x < _turn;
         }
         
         if (_nextPoint>=_pointPatrols.Length)
