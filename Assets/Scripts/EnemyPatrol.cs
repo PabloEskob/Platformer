@@ -18,13 +18,13 @@ public class EnemyPatrol : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _pointPatrols = new Transform[_path.childCount];
-        
+
         for (int i = 0; i < _path.childCount; i++)
         {
             _pointPatrols[i] = _path.transform.GetChild(i);
         }
     }
-    
+
     private void Update()
     {
         var target = _pointPatrols[_nextPoint];
@@ -35,8 +35,8 @@ public class EnemyPatrol : MonoBehaviour
             _nextPoint++;
             _spriteRenderer.flipX = transform.position.x < _turn;
         }
-        
-        if (_nextPoint>=_pointPatrols.Length)
+
+        if (_nextPoint >= _pointPatrols.Length)
         {
             _nextPoint = 0;
         }

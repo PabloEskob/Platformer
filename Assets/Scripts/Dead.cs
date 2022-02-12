@@ -4,20 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Dead : MonoBehaviour
-{ 
+{
     [SerializeField] private float _fallDistance;
-    
+
     private void Update()
     {
-        if (transform.position.y<_fallDistance)
+        if (transform.position.y < _fallDistance)
         {
             FinishGame();
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    private void OnCollisionEnter2D(Collision2D collision2D)
     {
-        if (col.collider.TryGetComponent(out EnemyPatrol enemy))
+        if (collision2D.collider.TryGetComponent(out EnemyPatrol enemy))
         {
             FinishGame();
         }

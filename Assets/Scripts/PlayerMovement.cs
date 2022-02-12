@@ -30,39 +30,38 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         _movement = new Vector3(Input.GetAxis("Horizontal"), 0.0f, 0.0f);
-        _animator.SetFloat(Horizontal,_movement.x);
-        _animator.SetFloat(Speed,_movement.sqrMagnitude);
+        _animator.SetFloat(Horizontal, _movement.x);
+        _animator.SetFloat(Speed, _movement.sqrMagnitude);
         _spriteRenderer.flipX = _movement.x < 0;
     }
 
-   private void FixedUpdate()
-   {
-       transform.Translate(_movement*_speedMovement*Time.fixedDeltaTime);
-       
-       switch (_isGround)
-       {
-           case true when Input.GetAxis("Jump") > 0:
-               _rigidbody2D.AddForce(Vector2.up*_speedJump,ForceMode2D.Impulse);
-               _animator.SetBool(Jump,true);
-               break;
-           case true:
-               _animator.SetBool(Jump,false);
-               break;
-       }
-   }
+    private void FixedUpdate()
+    {
+        transform.Translate(_movement * _speedMovement * Time.fixedDeltaTime);
 
-   private void OnCollisionEnter2D(Collision2D col)
-   {
-       col.collider.TryGetComponent(out Ground ground);
-       transform.parent = col.transform;
-       _isGround = true;
-   }
+        switch (_isGround)
+        {
+            case true when Input.GetAxis("Jump") > 0:
+                _rigidbody2D.AddForce(Vector2.up * _speedJump, ForceMode2D.Impulse);
+                _animator.SetBool(Jump, true);
+                break;
+            case true:
+                _animator.SetBool(Jump, false);
+                break;
+        }
+    }
 
-   private void OnCollisionExit2D(Collision2D other)
-   {
-       other.collider.TryGetComponent(out Ground ground);
-       transform.parent = null;
-      _isGround = false;
-   }
+    private void OnCollisionEnter2D(Collision2D collision2D)
+    {
+        collision2D.collider.TryGetComponent(out Ground ground);
+        transform.parent = collision2D.transform;
+        _isGround = true;
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        other.collider.TryGetComponent(out Ground ground);
+        transform.parent = null;
+        _isGround = false;
+    }
 }
-
