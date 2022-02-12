@@ -12,38 +12,40 @@ public class Coin : MonoBehaviour
     private Vector3 _startingPosition;
     private Vector3 _direction;
     private static int _count;
-    
+
     private void Start()
     {
         _direction = Vector3.up;
         _startingPosition = transform.position;
     }
-    
+
     private void Update()
     {
-       Move();
+        Move();
     }
 
     private void Move()
     {
-        transform.Translate(_direction*_speed*Time.deltaTime);
-        
-        if (transform.position.y>=_startingPosition.y+_movementHeight)
+        transform.Translate(_direction * _speed * Time.deltaTime);
+
+        if (transform.position.y >= _startingPosition.y + _movementHeight)
         {
-            _direction=Vector3.down;
+            _direction = Vector3.down;
         }
 
-        if (transform.position.y<=_startingPosition.y)
+        if (transform.position.y <= _startingPosition.y)
         {
-            _direction=Vector3.up;
+            _direction = Vector3.up;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerEnter2D(Collider2D collider2D)
     {
-        if (!col.TryGetComponent(out PlayerMovement player)) return;
-        _count += 1;
-        Debug.Log($"Игрок подобрал: {_count}монет");
-        Destroy(gameObject);
+        if (collider2D.TryGetComponent(out PlayerMovement player))
+        {
+            _count ++;
+            Debug.Log($"Игрок подобрал: {_count}монет");
+            Destroy(gameObject);
+        }
     }
 }
